@@ -1,6 +1,7 @@
 [submodule "thirdparty/zenoh-pico"]
 	path = thirdparty/zenoh-pico
-	url = git@github.com:g4sp3r/zenoh-pico.git
+	url = https://github.com/BonROV/zenoh-pico.git
+	branch = bonrov/1.10.2-espidf
 [submodule "thirdparty/Micro-CDR"]
 	path = thirdparty/Micro-CDR
 	url = https://github.com/eProsima/Micro-CDR
