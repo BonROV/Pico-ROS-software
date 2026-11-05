@@ -1,7 +1,7 @@
 # Pico-ROS on the Waveshare ESP32-P4-NANO (ESP-IDF, Ethernet)
 
-Barebones Pico-ROS node built straight from this repository's `src/` and submodules (zenoh-pico, Micro-CDR)
-as an ESP-IDF component. Nothing is vendored or patched.
+Barebones Pico-ROS node using this repository's ESP-IDF component ([components/picoros](../../components/picoros)),
+which builds `src/` and the zenoh-pico and Micro-CDR submodules in place. Nothing is vendored or patched.
 
 * Ethernet: on-board IP101 PHY (MDC 31, MDIO 52, reset 51, addr 1), DHCP
 * zenoh client to a ROS 2 `rmw_zenohd` router
@@ -17,8 +17,10 @@ idf.py menuconfig        # "Pico-ROS example": router locator, node name, domain
 idf.py -p <port> build flash monitor
 ```
 
-The component runs a configure-only CMake pass of zenoh-pico to generate `zenoh-pico/config.h` in the build
-directory (espidf profile, TCP client, no scouting/multicast, lease 60000 ms x2 to match `rmw_zenohd`).
+The component generates `zenoh-pico/config.h` in the build directory with a configure-only CMake pass of the
+zenoh-pico submodule (defaults: TCP client, no scouting/multicast, lease 60000 ms x2 to match `rmw_zenohd`).
+The project's `CMakeLists.txt` only adds `components/` to `EXTRA_COMPONENT_DIRS` and turns on `PICOROS_DEBUG`;
+see the component for the other options (your own type header, zenoh feature flags, log level).
 
 ## ROS 2 side (Lyrical + rmw_zenoh)
 
